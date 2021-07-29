@@ -42,6 +42,41 @@ app.get('/help', (req,res) => {
     })
 })
 
+let selectLatitude
+let selectLongitude
+let allWeathers = { }
+let allLocations = [ ]
+
+
+app.get('/forecast', (req,res) => {
+    if(!req.query.address) {
+        return res.send( {
+            error : 'You must provide an Address'
+        })
+    }
+
+        forecast(latitude, longitude, (error, forecastData) => {
+            if(error) {
+                return res.send({error})
+            }
+
+            res.send( {
+                allData : allData,
+                // forecast : forecastData,
+                // location,
+                // address : req.query.address
+            })
+
+        })
+    })
+
+    // res.send({
+    //     forecast : 'sunny',
+    //     location : 'nizamabad',
+    //     address : req.query.address
+    // })
+
+
 app.get('/weather', (req,res) => {
     if(!req.query.address) {
         return res.send( {
@@ -54,18 +89,12 @@ app.get('/weather', (req,res) => {
             return res.send({error})
         }
 
-        forecast(latitude, longitude, (error, forecastData) => {
-            if(error) {
-                return res.send({error})
-            }
-
             res.send( {
-                forecast : forecastData,
-                location,
-                address : req.query.address
+                allData : allData,
+                // forecast : forecastData,
+                // location,
+                // address : req.query.address
             })
-
-        })
     })
 
     // res.send({
